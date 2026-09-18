@@ -102,3 +102,62 @@ npm run start
 
 Con hosting gratuito (Vercel) y sin base de datos que mantener, el único
 trabajo recurrente es cobrar a los negocios y actualizar sus datos.
+
+## App nativa (Android/iOS) con Capacitor
+
+El proyecto ya está preparado para empaquetarse como app nativa con
+[Capacitor](https://capacitorjs.com):
+
+- `next.config.ts` usa `output: "export"` (exporta HTML/CSS/JS estático a
+  `out/`, sin servidor) y `trailingSlash: true` (para que las rutas
+  profundas como `/lugar/kloud-discoteca` carguen bien dentro del
+  contenedor nativo).
+- `capacitor.config.ts` define el id de la app (`com.nochevida.app`) y que
+  el contenido sale de `out/`.
+- Las carpetas `android/` y `ios/` son los proyectos nativos generados
+  (ya están en el repo, listos para abrir en Android Studio / Xcode).
+
+### Flujo de trabajo
+
+Cada vez que cambies algo (ej. `src/data/venues.ts`), sincroniza los
+proyectos nativos con:
+
+```bash
+npm run cap:sync   # next build + npx cap sync
+```
+
+### Android (Google Play)
+
+Requiere [Android Studio](https://developer.android.com/studio) instalado.
+
+```bash
+npm run android:open   # abre android/ en Android Studio
+```
+
+Desde Android Studio: `Build > Generate Signed App Bundle` para crear el
+`.aab` que se sube a la [Google Play Console](https://play.google.com/console)
+($25 USD pago único por la cuenta de desarrollador).
+
+### iOS (Apple App Store)
+
+Requiere una **Mac** con Xcode instalado (no es posible compilar ni firmar
+apps de iOS desde Linux/Windows).
+
+```bash
+npm run ios:open   # abre ios/App en Xcode
+```
+
+Desde Xcode: `Product > Archive` para generar el build y subirlo a
+[App Store Connect](https://appstoreconnect.apple.com) (requiere cuenta de
+Apple Developer Program, $99 USD/año).
+
+### Antes de publicar en las tiendas
+
+- Reemplazar el ícono y splash screen por defecto (`npx @capacitor/assets generate`
+  a partir de un logo propio).
+- Escribir una política de privacidad (obligatoria en ambas tiendas) y
+  enlazarla en la ficha de la app.
+- Tomar capturas de pantalla reales del dispositivo para la ficha de la
+  tienda.
+- Actualizar el correo de contacto de `/anunciate` por uno real antes de
+  publicar.

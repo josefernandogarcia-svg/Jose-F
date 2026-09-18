@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">NocheVida</string>
+    <string name="title_activity_main">NocheVida</string>
+    <string name="package_name">com.nochevida.app</string>
+    <string name="custom_url_scheme">com.nochevida.app</string>
+</resources>
