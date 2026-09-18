@@ -1,4 +1,4 @@
-package com.nochevida.app;
+package com.guatelife.app;
 
 import com.getcapacitor.BridgeActivity;
 

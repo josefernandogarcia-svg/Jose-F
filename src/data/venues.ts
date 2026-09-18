@@ -1,4 +1,18 @@
-export type VenueType = "bar" | "discoteca";
+export type VenueType = "bar" | "discoteca" | "restaurante" | "spot";
+
+export const tipoLabel: Record<VenueType, string> = {
+  bar: "Bar",
+  discoteca: "Discoteca",
+  restaurante: "Restaurante",
+  spot: "Spot",
+};
+
+export const tipoIcono: Record<VenueType, string> = {
+  bar: "🍸",
+  discoteca: "🎉",
+  restaurante: "🍽️",
+  spot: "📍",
+};
 
 export interface VenueEvent {
   nombre: string;
@@ -20,6 +34,7 @@ export interface Venue {
   precio: 1 | 2 | 3; // $ a $$$
   calificacion: number; // 0 a 5
   destacado: boolean; // listado patrocinado (fuente de ingresos)
+  /** Actividad/evento de hoy: aplica a bares, discotecas, restaurantes y spots */
   eventoHoy?: VenueEvent;
   telefono?: string;
   instagram?: string;
@@ -29,8 +44,9 @@ export interface Venue {
   imagenColor: string; // color de acento para la tarjeta (sin necesidad de fotos reales)
 }
 
-// Datos de ejemplo para Ciudad de Guatemala (Zona Viva). Reemplaza con lugares
-// reales de tu ciudad: nombre, dirección, coordenadas (lat/lng) y detalles.
+// Datos de ejemplo para Ciudad de Guatemala (Zona Viva, Cuatro Grados Norte,
+// Cayalá). Reemplaza con lugares reales: nombre, dirección, coordenadas
+// (lat/lng) y detalles — ver README para el formato.
 export const venues: Venue[] = [
   {
     id: "1",
@@ -139,6 +155,86 @@ export const venues: Venue[] = [
       descripcion: "Concurso de trivia con premios para el equipo ganador.",
     },
     imagenColor: "#0284c7",
+  },
+  {
+    id: "6",
+    slug: "cayala-bistro",
+    nombre: "Cayalá Bistro",
+    tipo: "restaurante",
+    ciudad: "Guatemala",
+    direccion: "Paseo Cayalá, Zona 16",
+    lat: 14.5218,
+    lng: -90.4658,
+    descripcion:
+      "Cocina de autor con terraza al aire libre, ideal para cenas y sobremesas largas.",
+    tags: ["cocina de autor", "terraza", "vinos"],
+    precio: 3,
+    calificacion: 4.7,
+    destacado: true,
+    eventoHoy: {
+      nombre: "Noche de Maridaje",
+      hora: "19:30",
+      descripcion: "Menú de 5 tiempos maridado con vinos seleccionados, cupo limitado.",
+    },
+    instagram: "https://instagram.com/cayalabistro",
+    urlReserva: "https://wa.me/50223456789",
+    imagenColor: "#b45309",
+  },
+  {
+    id: "7",
+    slug: "sabor-chapin",
+    nombre: "Sabor Chapín",
+    tipo: "restaurante",
+    ciudad: "Guatemala",
+    direccion: "4a Avenida 12-25, Zona 10",
+    lat: 14.5941,
+    lng: -90.5127,
+    descripcion:
+      "Comida típica guatemalteca reinventada, ambiente familiar y música en vivo los fines de semana.",
+    tags: ["comida típica", "familiar", "marimba"],
+    precio: 2,
+    calificacion: 4.5,
+    destacado: false,
+    imagenColor: "#15803d",
+  },
+  {
+    id: "8",
+    slug: "mirador-carretera-el-salvador",
+    nombre: "Mirador Vista Hermosa",
+    tipo: "spot",
+    ciudad: "Guatemala",
+    direccion: "Carretera a El Salvador km 14",
+    lat: 14.5389,
+    lng: -90.4526,
+    descripcion:
+      "Mirador con vista panorámica de la ciudad, perfecto para fotos al atardecer y food trucks los fines de semana.",
+    tags: ["vista panorámica", "atardecer", "food trucks"],
+    precio: 1,
+    calificacion: 4.3,
+    destacado: false,
+    eventoHoy: {
+      nombre: "Food Trucks al Atardecer",
+      hora: "17:00",
+      descripcion: "Feria de food trucks y música ambiental hasta las 21:00.",
+    },
+    imagenColor: "#0891b2",
+  },
+  {
+    id: "9",
+    slug: "parque-central-antigua",
+    nombre: "Parque Central Antigua Guatemala",
+    tipo: "spot",
+    ciudad: "Antigua Guatemala",
+    direccion: "5a Avenida Norte, Antigua Guatemala",
+    lat: 14.5586,
+    lng: -90.7339,
+    descripcion:
+      "El corazón de Antigua: arquitectura colonial, cafés alrededor y ambiente para caminar de noche.",
+    tags: ["colonial", "turístico", "para caminar"],
+    precio: 1,
+    calificacion: 4.9,
+    destacado: false,
+    imagenColor: "#7c2d12",
   },
 ];
 

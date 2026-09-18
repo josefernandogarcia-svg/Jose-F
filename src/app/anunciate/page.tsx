@@ -12,7 +12,7 @@ const planes = [
     incluye: [
       "Insignia 'Destacado' en tu ficha",
       "Apareces primero en 'Recomendados'",
-      "Puedes publicar el evento del día",
+      "Puedes publicar la actividad del día",
     ],
     popular: true,
   },
@@ -29,20 +29,21 @@ const planes = [
 ];
 
 export default function AnunciatePage() {
-  const asunto = encodeURIComponent("Quiero anunciar mi bar/discoteca en NocheVida");
+  const asunto = encodeURIComponent("Quiero anunciar mi negocio en GuateLife");
   const cuerpo = encodeURIComponent(
-    "Hola,\n\nMe gustaria publicar mi negocio en NocheVida.\n\nNombre del lugar:\nCiudad:\nDireccion:\nPlan de interes:\n\nGracias."
+    "Hola,\n\nMe gustaria publicar mi negocio en GuateLife.\n\nNombre del lugar:\nTipo (bar/discoteca/restaurante/spot):\nCiudad:\nDireccion:\nPlan de interes:\n\nGracias."
   );
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
       <div className="text-center">
         <h1 className="text-3xl font-bold sm:text-4xl">
-          Lleva más gente a tu bar o discoteca
+          Lleva más gente a tu negocio
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-white/60">
-          Miles de personas buscan a dónde salir esta noche. Publica tu
-          negocio, destaca tus eventos y llena tu local sin esfuerzo extra.
+          Miles de personas buscan a dónde ir en Guatemala: bares,
+          discotecas, restaurantes y spots. Publica tu negocio, destaca tus
+          actividades y llena tu local sin esfuerzo extra.
         </p>
       </div>
 
@@ -84,10 +85,10 @@ export default function AnunciatePage() {
           Escríbenos y en menos de 24 horas tu lugar está publicado.
         </p>
         <a
-          href={`mailto:contacto@nochevida.app?subject=${asunto}&body=${cuerpo}`}
+          href={`mailto:contacto@guatelife.app?subject=${asunto}&body=${cuerpo}`}
           className="mt-4 inline-block rounded-full bg-fuchsia-600 px-6 py-3 font-medium text-white hover:bg-fuchsia-500"
         >
-          Escribir a contacto@nochevida.app
+          Escribir a contacto@guatelife.app
         </a>
       </div>
     </div>

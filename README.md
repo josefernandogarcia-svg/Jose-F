@@ -1,25 +1,27 @@
-# NocheVida 🌙
+# GuateLife 📍
 
-App web de descubrimiento de vida nocturna: bares, discotecas, qué
-actividades hay hoy, cuáles son los más recomendados y qué tan cerca están
-del usuario. Construida con Next.js + TypeScript + Tailwind CSS.
+App web/móvil para descubrir qué hacer en Guatemala: bares, discotecas,
+restaurantes y spots (miradores, parques, lugares turísticos), con las
+actividades del día, cuáles son los más recomendados, qué tan cerca están
+del usuario, y un newsletter con las novedades. Construida con Next.js +
+TypeScript + Tailwind CSS, y empaquetada como app nativa con Capacitor.
 
 ## Modelo de ingresos (poco esfuerzo, ingresos recurrentes)
 
 La app funciona como **directorio patrocinado**: es gratis para los
-usuarios que buscan a dónde salir, y cobra a los negocios (bares,
-discotecas) por aparecer con más visibilidad. Todo el cobro y la
+usuarios que buscan a dónde ir, y cobra a los negocios (bares, discotecas,
+restaurantes, spots) por aparecer con más visibilidad. Todo el cobro y la
 publicación se maneja manualmente por ti, sin necesidad de infraestructura
 de pagos compleja al inicio.
 
 | Plan | Precio sugerido | Qué obtiene el negocio |
 | --- | --- | --- |
 | Básico | Gratis | Aparece listado en el directorio |
-| Destacado | Q250/mes | Insignia "Destacado", prioridad en resultados, puede publicar el evento del día |
+| Destacado | Q250/mes | Insignia "Destacado", prioridad en resultados, puede publicar la actividad del día |
 | Premium | Q600/mes | Todo lo anterior + botón de reservas/enlace de afiliado + banner en portada |
 
 La página `/anunciate` ya incluye los planes y un botón de contacto por
-correo para que los dueños de bares/discotecas te escriban.
+correo para que los dueños de negocios te escriban.
 
 **Fuentes de ingreso adicionales que puedes activar sin mucho esfuerzo:**
 
@@ -30,12 +32,13 @@ correo para que los dueños de bares/discotecas te escriban.
   añadir un banner de anuncios en `src/app/layout.tsx` sin tocar el resto
   del código.
 - **Publicidad de eventos especiales**: cobra por destacar un evento
-  puntual (fiesta de fin de año, lanzamiento) en la portada por unos días.
+  puntual (fiesta de fin de año, lanzamiento, promoción de restaurante) en
+  la portada o el newsletter por unos días.
 
 Como todo el contenido es estático (no hay base de datos ni backend que
 mantener), el costo de operación es prácticamente cero y el mantenimiento
-se limita a actualizar `src/data/venues.ts` cuando un negocio paga por
-aparecer o actualiza su evento.
+se limita a actualizar `src/data/venues.ts` y `src/data/novedades.ts`
+cuando un negocio paga por aparecer o hay algo nuevo que anunciar.
 
 ## Cómo agregar o editar lugares
 
@@ -43,10 +46,10 @@ Edita `src/data/venues.ts`. Cada lugar es un objeto con este formato:
 
 ```ts
 {
-  id: "6",
+  id: "10",
   slug: "nombre-del-lugar", // usado en la URL /lugar/nombre-del-lugar
-  nombre: "Nombre del Bar",
-  tipo: "bar", // o "discoteca"
+  nombre: "Nombre del lugar",
+  tipo: "bar", // "bar" | "discoteca" | "restaurante" | "spot"
   ciudad: "Guatemala",
   direccion: "Dirección completa",
   lat: 14.6, // coordenadas (Google Maps: click derecho > "¿Qué hay aquí?")
@@ -66,15 +69,43 @@ Edita `src/data/venues.ts`. Cada lugar es un objeto con este formato:
 No se necesitan fotos reales: cada tarjeta usa un degradado de color con
 las iniciales del lugar, así que publicar un lugar nuevo toma minutos.
 
+## Cómo publicar novedades
+
+Edita `src/data/novedades.ts` y agrega un objeto nuevo (fecha, título,
+resumen). Se muestran automáticamente en `/novedades`, de la más reciente
+a la más antigua.
+
+## Newsletter
+
+En `/novedades` hay un formulario de suscripción (`NewsletterSignup`).
+Por ahora funciona de forma simple y sin backend: abre el correo del
+usuario con un mensaje pre-armado dirigido a `contacto@guatelife.app` para
+que tú agregues manualmente a esa persona a tu lista.
+
+**Para automatizarlo** cuando tengas más suscriptores, lo más rápido es
+reemplazar ese flujo por un formulario embebido de un servicio gratuito:
+
+1. Crea una cuenta gratis en [Buttondown](https://buttondown.com) o
+   [Mailchimp](https://mailchimp.com).
+2. Copia el HTML de su formulario de suscripción.
+3. Reemplaza el `<form>` de `src/components/NewsletterSignup.tsx` por ese
+   formulario (mismo estilo, solo cambia el `action` y los campos).
+
+Así los correos llegan directo a tu lista y puedes mandar el newsletter
+real desde esa plataforma.
+
 ## Funcionalidades
 
-- **Explorar** (`/`): buscador, filtro por tipo (bar/discoteca), por
-  ciudad, por "solo con evento hoy", y orden por recomendados, mejor
-  calificados o más cercanos (usando la ubicación del navegador).
-- **Detalle de lugar** (`/lugar/[slug]`): descripción, evento del día,
+- **Explorar** (`/`): buscador, filtro por tipo (bar, discoteca,
+  restaurante, spot), por ciudad, por "solo con actividad hoy", y orden
+  por recomendados, mejor calificados o más cercanos (usando la ubicación
+  del navegador).
+- **Detalle de lugar** (`/lugar/[slug]`): descripción, actividad del día,
   dirección con enlace a Google Maps, contacto y botón de reserva.
+- **Novedades** (`/novedades`): qué está pasando y qué hay de nuevo, más
+  el formulario de newsletter.
 - **Anúnciate aquí** (`/anunciate`): planes de monetización para dueños de
-  bares/discotecas, con contacto directo.
+  negocios, con contacto directo.
 
 ## Desarrollo local
 
@@ -88,8 +119,8 @@ Abre [http://localhost:3000](http://localhost:3000).
 ## Producción
 
 ```bash
-npm run build
-npm run start
+npm run build   # genera el sitio estático en out/
+npm run start   # sirve out/ localmente para probarlo
 ```
 
 ## Desplegar gratis (recomendado: Vercel)
@@ -97,8 +128,8 @@ npm run start
 1. Sube este repositorio a GitHub (ya está listo).
 2. Entra a [vercel.com/new](https://vercel.com/new), importa el repo y
    despliega — no requiere configuración adicional.
-3. Cada vez que edites `src/data/venues.ts` y hagas push, el sitio se
-   actualiza solo.
+3. Cada vez que edites `src/data/venues.ts` o `src/data/novedades.ts` y
+   hagas push, el sitio se actualiza solo.
 
 Con hosting gratuito (Vercel) y sin base de datos que mantener, el único
 trabajo recurrente es cobrar a los negocios y actualizar sus datos.
@@ -112,7 +143,7 @@ El proyecto ya está preparado para empaquetarse como app nativa con
   `out/`, sin servidor) y `trailingSlash: true` (para que las rutas
   profundas como `/lugar/kloud-discoteca` carguen bien dentro del
   contenedor nativo).
-- `capacitor.config.ts` define el id de la app (`com.nochevida.app`) y que
+- `capacitor.config.ts` define el id de la app (`com.guatelife.app`) y que
   el contenido sale de `out/`.
 - Las carpetas `android/` y `ios/` son los proyectos nativos generados
   (ya están en el repo, listos para abrir en Android Studio / Xcode).
@@ -159,5 +190,5 @@ Apple Developer Program, $99 USD/año).
   enlazarla en la ficha de la app.
 - Tomar capturas de pantalla reales del dispositivo para la ficha de la
   tienda.
-- Actualizar el correo de contacto de `/anunciate` por uno real antes de
-  publicar.
+- Actualizar el correo de contacto de `/anunciate` y del newsletter por
+  uno real antes de publicar.

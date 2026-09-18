@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">NocheVida</string>
-    <string name="title_activity_main">NocheVida</string>
-    <string name="package_name">com.nochevida.app</string>
-    <string name="custom_url_scheme">com.nochevida.app</string>
+    <string name="app_name">GuateLife</string>
+    <string name="title_activity_main">GuateLife</string>
+    <string name="package_name">com.guatelife.app</string>
+    <string name="custom_url_scheme">com.guatelife.app</string>
 </resources>

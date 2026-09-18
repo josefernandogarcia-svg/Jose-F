@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllVenues, getVenueBySlug } from "@/data/venues";
+import { getAllVenues, getVenueBySlug, tipoIcono, tipoLabel } from "@/data/venues";
 
 const precioLabel: Record<number, string> = { 1: "$", 2: "$$", 3: "$$$" };
 
@@ -36,7 +36,7 @@ export default async function VenuePage({
 
       <div className="mt-6 flex flex-wrap items-center gap-3">
         <span className="rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-wide">
-          {venue.tipo}
+          {tipoIcono[venue.tipo]} {tipoLabel[venue.tipo]}
         </span>
         {venue.destacado && (
           <span className="rounded-full bg-amber-400 px-3 py-1 text-xs font-semibold text-black">
@@ -64,7 +64,7 @@ export default async function VenuePage({
       {venue.eventoHoy && (
         <div className="mt-6 rounded-xl border border-fuchsia-500/30 bg-fuchsia-500/10 p-4">
           <h2 className="font-semibold text-fuchsia-300">
-            🎉 Hoy: {venue.eventoHoy.nombre} · {venue.eventoHoy.hora}
+            ✨ Hoy: {venue.eventoHoy.nombre} · {venue.eventoHoy.hora}
           </h2>
           <p className="mt-1 text-sm text-white/70">
             {venue.eventoHoy.descripcion}

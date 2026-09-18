@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Venue } from "@/data/venues";
+import { tipoIcono, tipoLabel, type Venue } from "@/data/venues";
 
 const precioLabel: Record<number, string> = { 1: "$", 2: "$$", 3: "$$$" };
 
@@ -38,7 +38,7 @@ export default function VenueCard({
         <div className="flex items-start justify-between gap-2">
           <h3 className="text-lg font-semibold text-white">{venue.nombre}</h3>
           <span className="shrink-0 rounded-full bg-white/10 px-2 py-0.5 text-xs uppercase tracking-wide text-white/70">
-            {venue.tipo}
+            {tipoIcono[venue.tipo]} {tipoLabel[venue.tipo]}
           </span>
         </div>
 
@@ -58,7 +58,7 @@ export default function VenueCard({
 
         {venue.eventoHoy && (
           <div className="mt-2 rounded-lg bg-fuchsia-500/10 px-3 py-2 text-xs text-fuchsia-300">
-            🎉 Hoy: {venue.eventoHoy.nombre} · {venue.eventoHoy.hora}
+            ✨ Hoy: {venue.eventoHoy.nombre} · {venue.eventoHoy.hora}
           </div>
         )}
       </div>

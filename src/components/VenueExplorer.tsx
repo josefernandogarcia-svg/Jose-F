@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Venue, VenueType } from "@/data/venues";
+import { tipoIcono, tipoLabel, type Venue, type VenueType } from "@/data/venues";
 import { distanciaKm } from "@/lib/distance";
 import VenueCard from "./VenueCard";
 
@@ -102,8 +102,11 @@ export default function VenueExplorer({
           className="rounded-lg border border-white/10 bg-neutral-950 px-3 py-2 text-sm text-white"
         >
           <option value="todos">Todos los lugares</option>
-          <option value="bar">Bares</option>
-          <option value="discoteca">Discotecas</option>
+          {(Object.keys(tipoLabel) as VenueType[]).map((t) => (
+            <option key={t} value={t}>
+              {tipoIcono[t]} {tipoLabel[t]}s
+            </option>
+          ))}
         </select>
 
         <select
@@ -138,7 +141,7 @@ export default function VenueExplorer({
             onChange={(e) => setSoloEventosHoy(e.target.checked)}
             className="h-4 w-4 accent-fuchsia-500"
           />
-          Solo con evento hoy
+          Solo con actividad hoy
         </label>
 
         <button
