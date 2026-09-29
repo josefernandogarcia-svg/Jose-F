@@ -20,6 +20,11 @@ export interface VenueEvent {
   descripcion: string;
 }
 
+export interface ActividadProgramada extends VenueEvent {
+  /** Días en que aplica: 0 = domingo, 1 = lunes, ... 6 = sábado */
+  dias: number[];
+}
+
 export interface Venue {
   id: string;
   slug: string;
@@ -34,8 +39,13 @@ export interface Venue {
   precio: 1 | 2 | 3; // $ a $$$
   calificacion: number; // 0 a 5
   destacado: boolean; // listado patrocinado (fuente de ingresos)
-  /** Actividad/evento de hoy: aplica a bares, discotecas, restaurantes y spots */
+  /** Actividad/evento de hoy: aplica a bares, discotecas, restaurantes y spots.
+   * Usa esto para un evento puntual (una sola vez). */
   eventoHoy?: VenueEvent;
+  /** Horario semanal recurrente: la app calcula sola cuál mostrar según el
+   * día real, sin necesidad de editar el código cada día. Si un lugar tiene
+   * esto, tiene prioridad sobre `eventoHoy`. */
+  actividadesSemana?: ActividadProgramada[];
   telefono?: string;
   instagram?: string;
   sitioWeb?: string;
@@ -63,11 +73,14 @@ export const venues: Venue[] = [
     precio: 2,
     calificacion: 4.6,
     destacado: true,
-    eventoHoy: {
-      nombre: "Jazz Nocturno",
-      hora: "21:00",
-      descripcion: "Trío de jazz en vivo, entrada libre con consumo mínimo.",
-    },
+    actividadesSemana: [
+      {
+        dias: [4], // jueves
+        nombre: "Jazz Nocturno",
+        hora: "21:00",
+        descripcion: "Trío de jazz en vivo, entrada libre con consumo mínimo.",
+      },
+    ],
     instagram: "https://instagram.com/aluxbar",
     urlReserva: "https://wa.me/50212345678",
     imagenColor: "#7c3aed",
@@ -87,11 +100,14 @@ export const venues: Venue[] = [
     precio: 3,
     calificacion: 4.8,
     destacado: true,
-    eventoHoy: {
-      nombre: "Noche de DJ Internacional",
-      hora: "23:00",
-      descripcion: "Line-up especial de fin de semana, boletos anticipados recomendados.",
-    },
+    actividadesSemana: [
+      {
+        dias: [5, 6], // viernes y sábado
+        nombre: "Noche de DJ Internacional",
+        hora: "23:00",
+        descripcion: "Line-up especial de fin de semana, boletos anticipados recomendados.",
+      },
+    ],
     sitioWeb: "https://example.com/kloud",
     urlReserva: "https://example.com/kloud/reservas",
     imagenColor: "#db2777",
@@ -111,11 +127,14 @@ export const venues: Venue[] = [
     precio: 1,
     calificacion: 4.2,
     destacado: false,
-    eventoHoy: {
-      nombre: "Happy Hour Extendido",
-      hora: "17:00",
-      descripcion: "2x1 en cocteles seleccionados hasta las 20:00.",
-    },
+    actividadesSemana: [
+      {
+        dias: [1, 2, 3, 4, 5], // lunes a viernes
+        nombre: "Happy Hour Extendido",
+        hora: "17:00",
+        descripcion: "2x1 en cocteles seleccionados hasta las 20:00.",
+      },
+    ],
     imagenColor: "#059669",
   },
   {
@@ -149,11 +168,14 @@ export const venues: Venue[] = [
     precio: 2,
     calificacion: 4.0,
     destacado: false,
-    eventoHoy: {
-      nombre: "Noche de Trivia",
-      hora: "19:30",
-      descripcion: "Concurso de trivia con premios para el equipo ganador.",
-    },
+    actividadesSemana: [
+      {
+        dias: [3], // miércoles
+        nombre: "Noche de Trivia",
+        hora: "19:30",
+        descripcion: "Concurso de trivia con premios para el equipo ganador.",
+      },
+    ],
     imagenColor: "#0284c7",
   },
   {

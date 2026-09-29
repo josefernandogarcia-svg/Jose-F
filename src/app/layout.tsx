@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   title: "GuateLife · Bares, restaurantes y spots de Guatemala",
   description:
     "Descubre los bares, discotecas, restaurantes y spots más recomendados de Guatemala, con las actividades de hoy y qué tan cerca están de ti.",
+  manifest: "/manifest.webmanifest",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -60,6 +61,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             ·{" "}
             <Link href="/novedades" className="text-fuchsia-400 hover:underline">
               Suscríbete al newsletter
+            </Link>{" "}
+            ·{" "}
+            <Link href="/privacidad" className="text-fuchsia-400 hover:underline">
+              Privacidad
             </Link>
           </p>
         </footer>

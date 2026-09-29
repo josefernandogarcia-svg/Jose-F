@@ -59,7 +59,10 @@ Edita `src/data/venues.ts`. Cada lugar es un objeto con este formato:
   precio: 2, // 1 = $, 2 = $$, 3 = $$$
   calificacion: 4.5,
   destacado: true, // true si pagó el plan Destacado/Premium
-  eventoHoy: { nombre: "Noche de...", hora: "22:00", descripcion: "..." },
+  eventoHoy: { nombre: "Noche de...", hora: "22:00", descripcion: "..." }, // evento puntual (una sola vez)
+  actividadesSemana: [ // opcional: recurrente, la app calcula sola cuál mostrar hoy
+    { dias: [4], nombre: "Jazz Nocturno", hora: "21:00", descripcion: "..." }, // 0=domingo…6=sábado
+  ],
   instagram: "https://instagram.com/...",
   urlReserva: "https://wa.me/...", // opcional, enlace de reservas/afiliado
   imagenColor: "#db2777", // color de acento de la tarjeta
@@ -68,6 +71,12 @@ Edita `src/data/venues.ts`. Cada lugar es un objeto con este formato:
 
 No se necesitan fotos reales: cada tarjeta usa un degradado de color con
 las iniciales del lugar, así que publicar un lugar nuevo toma minutos.
+
+**"Actividad de hoy" automática:** si usas `actividadesSemana` en vez de
+`eventoHoy`, la app calcula sola qué actividad mostrar según el día real
+(sin que nadie tenga que editar nada cada día). `eventoHoy` sigue
+funcionando para algo puntual de una sola vez (ej. una promoción de fin de
+año). Si un lugar tiene ambos, `actividadesSemana` tiene prioridad.
 
 ## Cómo publicar novedades
 
@@ -182,13 +191,34 @@ Desde Xcode: `Product > Archive` para generar el build y subirlo a
 [App Store Connect](https://appstoreconnect.apple.com) (requiere cuenta de
 Apple Developer Program, $99 USD/año).
 
+### Ícono y splash screen
+
+Ya están generados a partir de `assets/icon.png` (el pin 📍 de la marca) y
+aplicados a Android, iOS y PWA con `@capacitor/assets`. Si más adelante
+quieres un logo distinto, reemplaza `assets/icon.png` (1024×1024) y
+`assets/splash.png` (2732×2732) y corre:
+
+```bash
+npx capacitor-assets generate
+npm run cap:sync
+```
+
+### Política de privacidad
+
+Ya existe en `/privacidad` (obligatoria en ambas tiendas). Antes de
+publicar, actualiza el correo de contacto ahí y en `/anunciate` y el
+newsletter por uno real tuyo.
+
 ### Antes de publicar en las tiendas
 
-- Reemplazar el ícono y splash screen por defecto (`npx @capacitor/assets generate`
-  a partir de un logo propio).
-- Escribir una política de privacidad (obligatoria en ambas tiendas) y
-  enlazarla en la ficha de la app.
 - Tomar capturas de pantalla reales del dispositivo para la ficha de la
   tienda.
-- Actualizar el correo de contacto de `/anunciate` y del newsletter por
-  uno real antes de publicar.
+- Actualizar el correo de contacto de `/anunciate`, del newsletter y de
+  `/privacidad` por uno real antes de publicar.
+- **Importante:** este proyecto se preparó desde un entorno Linux en la
+  nube, que no tiene el SDK de Android ni Xcode instalados (y no puede
+  descargarlos por política de red). Compilar el `.aab` firmado
+  (Android) y el archivo de iOS **debe hacerse en tu computadora** con
+  Android Studio / Xcode siguiendo los pasos de arriba — el código ya
+  está listo, solo falta ese paso final que no se puede hacer de forma
+  remota.

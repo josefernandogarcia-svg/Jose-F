@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllVenues, getVenueBySlug, tipoIcono, tipoLabel } from "@/data/venues";
+import ActividadHoy from "@/components/ActividadHoy";
 
 const precioLabel: Record<number, string> = { 1: "$", 2: "$$", 3: "$$$" };
 
@@ -61,16 +62,7 @@ export default async function VenuePage({
         ))}
       </div>
 
-      {venue.eventoHoy && (
-        <div className="mt-6 rounded-xl border border-fuchsia-500/30 bg-fuchsia-500/10 p-4">
-          <h2 className="font-semibold text-fuchsia-300">
-            ✨ Hoy: {venue.eventoHoy.nombre} · {venue.eventoHoy.hora}
-          </h2>
-          <p className="mt-1 text-sm text-white/70">
-            {venue.eventoHoy.descripcion}
-          </p>
-        </div>
-      )}
+      <ActividadHoy venue={venue} variant="detalle" />
 
       <div className="mt-8 grid gap-4 rounded-xl border border-white/10 bg-neutral-900/60 p-5 sm:grid-cols-2">
         <div>

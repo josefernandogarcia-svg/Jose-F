@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { tipoIcono, tipoLabel, type Venue } from "@/data/venues";
+import ActividadHoy from "./ActividadHoy";
 
 const precioLabel: Record<number, string> = { 1: "$", 2: "$$", 3: "$$$" };
 
@@ -56,11 +57,7 @@ export default function VenueCard({
           )}
         </div>
 
-        {venue.eventoHoy && (
-          <div className="mt-2 rounded-lg bg-fuchsia-500/10 px-3 py-2 text-xs text-fuchsia-300">
-            ✨ Hoy: {venue.eventoHoy.nombre} · {venue.eventoHoy.hora}
-          </div>
-        )}
+        <ActividadHoy venue={venue} variant="card" />
       </div>
     </Link>
   );

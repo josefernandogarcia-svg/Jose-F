@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { tipoIcono, tipoLabel, type Venue, type VenueType } from "@/data/venues";
 import { distanciaKm } from "@/lib/distance";
+import { getActividadHoy } from "@/lib/actividades";
 import VenueCard from "./VenueCard";
 
 type Orden = "recomendados" | "cercania" | "calificacion";
@@ -49,7 +50,7 @@ export default function VenueExplorer({
     const lista = venues.filter((v) => {
       if (tipo !== "todos" && v.tipo !== tipo) return false;
       if (ciudad !== "todas" && v.ciudad !== ciudad) return false;
-      if (soloEventosHoy && !v.eventoHoy) return false;
+      if (soloEventosHoy && !getActividadHoy(v)) return false;
       if (busqueda.trim()) {
         const q = busqueda.trim().toLowerCase();
         const enTexto =
