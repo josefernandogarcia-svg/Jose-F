@@ -5,18 +5,21 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npx serve@latest out",
+    "start": "next start",
     "lint": "eslint",
-    "cap:sync": "next build && npx cap sync",
+    "cap:sync": "npx cap sync",
     "android:open": "npx cap open android",
     "ios:open": "npx cap open ios"
   },
   "dependencies": {
     "@capacitor/android": "^8.5.2",
     "@capacitor/ios": "^8.5.2",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.2",
     "next": "16.3.5",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",

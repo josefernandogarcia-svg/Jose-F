@@ -1,9 +1,10 @@
-import { getAllVenues, getCiudades } from "@/data/venues";
+import { getAllVenues, getCiudades } from "@/data/venues-repo";
 import VenueExplorer from "@/components/VenueExplorer";
 
-export default function Home() {
-  const venues = getAllVenues();
-  const ciudades = getCiudades();
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const [venues, ciudades] = await Promise.all([getAllVenues(), getCiudades()]);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">

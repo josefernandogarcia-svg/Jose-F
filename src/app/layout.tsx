@@ -39,6 +39,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <Link href="/novedades" className="text-white/70 hover:text-white">
                 Novedades
               </Link>
+              <Link href="/cuenta/panel" className="text-white/70 hover:text-white">
+                Mi panel
+              </Link>
               <Link
                 href="/anunciate"
                 className="rounded-full bg-fuchsia-600 px-4 py-1.5 font-medium text-white hover:bg-fuchsia-500"

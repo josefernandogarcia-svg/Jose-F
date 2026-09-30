@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllVenues, getVenueBySlug, tipoIcono, tipoLabel } from "@/data/venues";
+import { tipoIcono, tipoLabel } from "@/data/venues";
+import { getVenueBySlug } from "@/data/venues-repo";
 import ActividadHoy from "@/components/ActividadHoy";
 
 const precioLabel: Record<number, string> = { 1: "$", 2: "$$", 3: "$$$" };
 
-export function generateStaticParams() {
-  return getAllVenues().map((v) => ({ slug: v.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function VenuePage({
   params,
@@ -15,7 +14,7 @@ export default async function VenuePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const venue = getVenueBySlug(slug);
+  const venue = await getVenueBySlug(slug);
   if (!venue) notFound();
 
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${venue.lat},${venue.lng}`;
@@ -26,14 +25,24 @@ export default async function VenuePage({
         ← Volver a explorar
       </Link>
 
-      <div
-        className="mt-4 flex h-40 items-center justify-center rounded-2xl text-4xl font-bold text-white/90"
-        style={{
-          background: `linear-gradient(135deg, ${venue.imagenColor}, #0a0a0a)`,
-        }}
-      >
-        {venue.nombre}
-      </div>
+      {venue.fotoPrincipalUrl ? (
+        // Foto subida por el propio negocio desde su panel.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={venue.fotoPrincipalUrl}
+          alt={venue.nombre}
+          className="mt-4 h-40 w-full rounded-2xl object-cover"
+        />
+      ) : (
+        <div
+          className="mt-4 flex h-40 items-center justify-center rounded-2xl text-4xl font-bold text-white/90"
+          style={{
+            background: `linear-gradient(135deg, ${venue.imagenColor}, #0a0a0a)`,
+          }}
+        >
+          {venue.nombre}
+        </div>
+      )}
 
       <div className="mt-6 flex flex-wrap items-center gap-3">
         <span className="rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-wide">

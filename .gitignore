@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.local.example
 
 # vercel
 .vercel
@@ -39,3 +40,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Next.js regenera estos archivos automáticamente en cada `next dev`/`build`
+# (avisos internos para agentes de IA sobre esta versión de Next.js)
+/AGENTS.md
+/CLAUDE.md

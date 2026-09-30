@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const planes = [
   {
     nombre: "Básico",
@@ -82,14 +84,24 @@ export default function AnunciatePage() {
       <div className="mt-10 rounded-2xl border border-white/10 bg-neutral-900/60 p-6 text-center">
         <h2 className="text-lg font-semibold">¿Listo para aparecer?</h2>
         <p className="mt-2 text-white/60">
-          Escríbenos y en menos de 24 horas tu lugar está publicado.
+          Crea tu cuenta y publica tu lugar tú mismo en minutos: tú
+          controlas la foto, la descripción y el horario de actividades.
         </p>
-        <a
-          href={`mailto:contacto@guatelife.app?subject=${asunto}&body=${cuerpo}`}
+        <Link
+          href="/cuenta/registro"
           className="mt-4 inline-block rounded-full bg-fuchsia-600 px-6 py-3 font-medium text-white hover:bg-fuchsia-500"
         >
-          Escribir a contacto@guatelife.app
-        </a>
+          Crear mi cuenta de negocio
+        </Link>
+        <p className="mt-4 text-sm text-white/40">
+          ¿Prefieres que lo hagamos nosotros?{" "}
+          <a
+            href={`mailto:contacto@guatelife.app?subject=${asunto}&body=${cuerpo}`}
+            className="text-fuchsia-400 hover:underline"
+          >
+            Escríbenos
+          </a>
+        </p>
       </div>
     </div>
   );

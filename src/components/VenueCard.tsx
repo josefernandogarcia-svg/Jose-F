@@ -16,18 +16,28 @@ export default function VenueCard({
       href={`/lugar/${venue.slug}`}
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-neutral-900 transition hover:-translate-y-1 hover:border-white/30"
     >
-      <div
-        className="flex h-28 items-center justify-center text-3xl font-bold text-white/90"
-        style={{
-          background: `linear-gradient(135deg, ${venue.imagenColor}, #0a0a0a)`,
-        }}
-      >
-        {venue.nombre
-          .split(" ")
-          .map((w) => w[0])
-          .slice(0, 2)
-          .join("")}
-      </div>
+      {venue.fotoPrincipalUrl ? (
+        // Foto subida por el propio negocio desde su panel.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={venue.fotoPrincipalUrl}
+          alt={venue.nombre}
+          className="h-28 w-full object-cover"
+        />
+      ) : (
+        <div
+          className="flex h-28 items-center justify-center text-3xl font-bold text-white/90"
+          style={{
+            background: `linear-gradient(135deg, ${venue.imagenColor}, #0a0a0a)`,
+          }}
+        >
+          {venue.nombre
+            .split(" ")
+            .map((w) => w[0])
+            .slice(0, 2)
+            .join("")}
+        </div>
+      )}
 
       {venue.destacado && (
         <span className="absolute right-3 top-3 rounded-full bg-amber-400 px-2 py-0.5 text-xs font-semibold text-black">

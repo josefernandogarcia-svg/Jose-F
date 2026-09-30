@@ -20,3 +20,7 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+.input {
+  @apply w-full rounded-lg border border-white/10 bg-neutral-950 px-3 py-2 text-sm text-white placeholder:text-white/40 focus:border-fuchsia-400 focus:outline-none;
+}
